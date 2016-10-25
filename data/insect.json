@@ -1,0 +1,215 @@
+{
+ "name": "root",
+ "children": [
+     {
+    "name": "insecta",
+ "children": [
+  {
+   "name": "Coleoptera",
+   "children": [
+    {
+    "name": "Myxophaga",
+    "children": [
+        {
+     "name": "Hydroscaphidae ",
+     "children": [
+        {
+            "name": "Hydroscapha",
+            "children":[
+                {"name": "Hydroscapha jumaloni", "size": 7074},
+                {"name": "Hydroscapha saboureaui ", "size": 7074}
+            ]
+            }
+            ]
+        }
+        ]
+    },
+       {
+    "name": "Archostemata",
+    "children": [
+        {
+     "name": "Crowsoniellidae",
+     "children": [
+        {
+            "name": "Crowsoniella",
+            "children":[
+                {"name": "Crowsoniella relicta", "size": 7074},
+                {"name": "Coccinella magnifica", "size": 7074}
+            ]
+            }
+            ]
+        }
+        ]
+    },{
+    "name": "Adephaga",
+    "children": [
+        {
+     "name": "Carabidae",
+     "children": [
+        {
+            "name": "Cicindelinae",
+            "children":[
+                {"name": "Lophyra sp.", "size": 7074},
+                {"name": "Cicindela aurofasciata", "size": 7074},
+                {"name": "Brachinus aabaaba", "size": 7074}
+            ]
+            },
+         {
+         "name": "Orthogoniinae",
+            "children":[
+                {"name": "Actenoncus ater", "size": 7074}
+            ]
+            }
+            ]
+        }
+        ]
+    }
+    
+     ]
+    },
+       {
+   "name": "Lepidoptera",
+   "children": [
+    {
+     "name": "Micropterigoidea",
+     "children": [
+         {
+             "name" : "Micropterix",
+             "children":[
+                {"name": "Micropterix abchasiae", "size": 7074},
+                 {"name": "Micropterix agenjoi", "size": 7074},
+                 {"name": "Micropterix isobasella", "size": 7074},
+                 {"name": "Micropterix osthelderi", "size": 7074}
+                 ]
+         },
+          {
+             "name" : "Epimartyria",
+             "children":[
+                {"name": "Epimartyria pardella", "size": 7074} 
+                 ]
+         },
+          {
+             "name" : "Issikiomartyria",
+             "children":[
+                {"name": "Issikiomartyria bisegmentata", "size": 7074}
+                 ]
+         }
+     ]
+    },{
+     "name": "Glossata",
+     "children": [
+         {
+         "name":"Heteroneura",
+         "children":[
+            {"name": "Vanessa tameamea", "size": 7074},
+             {"name": "Ditrysia", "size": 7074}
+             ]
+             }
+     ]
+    },
+      {
+     "name": "Agathiphaga",
+     "children": [
+         {
+         "name":"Agathiphagidae",
+         "children":[
+            {"name": "Agathiphaga queenslandensis", "size": 7074},
+             {"name": "Agathiphaga vitiensis", "size": 7074}
+             ]
+         }
+    ]
+    }
+   ]
+  },   {
+   "name": "Diptera",
+   "children": [
+    {
+     "name": "Brachycera",
+     "children": [
+         {
+             "name":"Asilidae",
+             "children":
+             [
+                  {"name": "Asilidae sp.", "size": 7074}
+             ]
+         },
+         {
+             "name":"Syrphidae",
+             "children":
+             [
+                 {
+                 "name":"Eristalinae",
+                 "children":[
+                  {"name": "Eristalinae sp.", "size": 7074}
+                     ]
+                 },
+                 {
+                 "name":"Syrphinae",
+                 "children":[
+                  {"name": "Syrphinae", "size": 7074}
+                     ]
+                 }
+             ]
+         },
+         {
+             "name":"Tabanidae",
+             "children":
+             [
+                  {"name": "Tabanus schwardti", "size": 7074},
+                 {"name": "Tabanus nippontucki ", "size": 7074}
+             ]
+             
+         }
+     
+     ]
+    },{
+     "name": "Nematocera",
+     "children": [
+         {
+         "name":"Tipulidae",
+         "children":[
+             {
+             "name":"Tipula",
+             "children":[
+            {"name": "Tipula oleracea", "size": 7074},
+            {"name": "Tipula flavolineata", "size": 7074}
+                 ]
+             },{
+                 "name":"Nephrotoma",
+                 "children":
+                 [
+                      {"name": "Nephrotoma ferruginea", "size": 7074}
+                 ]
+             }
+             ]
+         }
+     ]
+    }
+   ]
+  },
+       {
+   "name": "Hymnoptera",
+   "children": [
+    {
+     "name": "Symphyta",
+     "children": [
+      {"name": "Cephoidea", "size": 7074}
+     ]
+    },{
+     "name": "Formicidae",
+     "children": [
+      {"name": "Plectroctena mandibularis", "size": 7074}
+     ]
+    },
+       {
+     "name": "Apidae",
+     "children": [
+      {"name": "Bombus muscorum", "size": 7074}
+     ]
+    }
+   ]
+  }
+ ]
+}
+]
+}

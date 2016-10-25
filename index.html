@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>Geographical Phylogenetic Visualization</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  
+     <!-- using local jquery, bootstrap and d3 libs -->
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script src="src/bootstrap.min.js"></script>
+    <script src="src/d3.v3.min.js"></script>
+      <!-- D3.geo -->
+    <!--script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script-->
+      
+    <script src="src/sunburstD3.js"></script>
+    <script src="src/newick.js"></script>
+    <script type="text/javascript" src="src/dendogram.js"></script>
+    <script type="text/javascript" src="src/newickTree.js"></script>
+     
+     <!-- fontawesome and custom css -->
+   <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">	
+     
+     <!-- opentip tooltip js and css -->
+     <script src="src/opentip.js"></script>
+     <link rel="stylesheet" type="text/css" href="css/opentip.css">
+     <!-- using leaflet js and css -->
+     <script
+        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
+    </script>
+     <script
+       src="http://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js">
+    </script>
+     
+     <script type='text/javascript' src='src/leaflet.markercluster-src.js'></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="css/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="css/MarkerCluster.Default.css" />
+
+     <!--script-->
+     <link rel="stylesheet" type="text/css" href="css/style.css">
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     
+     <style> 
+     body {
+         margin-top: 50px;
+        background-color: #f2f2f2;
+     }
+         </style>
+  </head>
+    
+ <body>
+     
+     <div class="container-fluid">
+         
+         <div class="row">
+            <div id="worldMap" class="col-md-12"> 
+                <div class="chart-wrapper">
+                    <div class="chart-title">Geographical Phylogenetic Visualization
+                    </div>
+                    <div id="map" class="chart-area">
+                    </div>
+            </div>
+            </div>
+             <!--div class="col-md-3">
+                 <div class="chart-wrapper">
+                     <div class="chart-title">Donut chart </div>
+                    <div id="donut" class="chart-area"></div>
+                  </div>
+             </div-->
+         </div>
+         
+         <div class="row hide-vis">
+             <div class="col-md-12"> 
+                <div class="chart-wrapper">
+                    <div class="chart-title">Lineage</div>
+                    <div id="sequence" class="chart-area"></div>
+                </div>
+            </div>
+         </div>
+         
+         <div class="row hide-vis">
+          
+             <div class="col-md-5"> 
+                 <div class="chart-wrapper">
+                     <div class="chart-title dropdown">Sequence Sunburst
+                         <button type="btn btn-raised" class="btn btn-default btn-raised dropdown-toggle" data-toggle="dropdown">          
+                             <span class="fa fa-list"></span>
+                         </button>
+                         <ul class="dropdown-menu dropdown-menu-right">
+                            <li><button id="saveSunburst" type="btn btn-raised" class="btn btn-default btn-raised btn-responsive">save <span class="icon-download icon-medium"></span></button> </li>
+                         </ul>
+                     </div>
+                    <div id="sunburst" class="chart-area"></div>
+                </div>
+             </div>
+            <div class="col-md-7">
+                <div class="chart-wrapper">
+                    <div class="chart-title dropdown"> Phylogenetic Tree
+                        <button type="button" class="btn btn-default btn-raised btn-responsive dropdown-toggle" data-toggle="dropdown"> <span class="fa fa-list"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><button type="btn btn-raised" class="btn btn-default btn-raised btn-responsive" onclick="dendrogram()">Linear Dendrogram</button></li>
+                                <li><button type="btn btn-raised" class="btn btn-default btn-raised btn-responsive" onclick="radialDendrogram()">Circular Dendogram</button></li>
+                                <li><button id="saveDendrogram" type="btn btn-raised" class="btn btn-default btn-raised btn-responsive">save <span class="icon-download icon-medium rotate"></span></button></li>
+                                <li><label id="show-length" class="btn btn-default btn-raised btn-responsive">
+                        <input type="checkbox"> Show branch length
+                    </label></li>
+                            </ul>
+                    </div>
+                    <div id="dendogram" class="chart-area"></div>
+                </div>
+             </div>
+     </div>
+         
+    <script type="text/javascript" src="src/donutD3.js"></script>
+    <script type='text/javascript' src='src/markers.js'></script>
+    <script type='text/javascript' src='src/app.js'></script>
+    </div>
+  </body>
+</html>
