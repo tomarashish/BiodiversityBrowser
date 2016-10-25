@@ -1,32 +1,21 @@
 function radialDendrogram() {
     var outerRadius = 900/2,
-    innerRadius = outerRadius - 160,
+    innerRadius = outerRadius - 170,
         width = outerRadius*2,
         height = outerRadius*2,
     panSpeed = 200,
 	   panBoundary = 20; // Within 20px from edges will pan when dragging.
-  
-    var barScale = d3.scale.linear()
-                .domain([0,1])
-                .range([0,60]);
-    
-var color = d3.scale.category20b()
+        
+var color = d3.scale.category20()
     .domain(["Bacteria"]);
 
-    var pie = d3.layout.pie()
-        .sort(null)
-        .value(function(d){
-            return 1;
-        });
-    
 var cluster = d3.layout.cluster()
     .size([360, innerRadius])
-    .children(function(d) { return d.branchset; })
-    .value(function(d) { return 1; })
-    .sort(function(a, b) { return (a.value - b.value) || d3.ascending(a.length, b.length); })
-    .separation(function(a, b) { return 1; });
+    .children(function(d){ return d.branchset; })
+    .value(function(d){ return 1; })
+    .sort(function(a,b){ return (a.value - b.value) ||  d3.ascending(a.length, b.length); })
+    .separation(function(a,b){ return 1});
 
-    
 function pan(domNode, direction) {
 			var speed = panSpeed;
 			if (panTimer) {
@@ -53,7 +42,6 @@ function pan(domNode, direction) {
 		}
     
     function zoom() {
-        
 			chart.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 		}
 		// define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
@@ -69,38 +57,57 @@ var svg = d3.select("#dendogram").append("svg")
     .attr("preserveAspectRatio", "xMidYMid")
     .call(zoomListener);
 
-    var chart = svg.append("g")
-    .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
-    
+/*var legend = svg.append("g")
+    .attr("class", "legend")
+    .selectAll("g")
+    .data(color.domain())
+    .enter().append("g")
+    .attr("transform", function(d, i) { 
+        return "translate(" + (outerRadius * 2 - 10) + "," + (i * 20 + 10) + ")"; 
+    });
 
-d3.text("./data/life.txt", function(error, tree){
+legend.append("rect")
+    .attr("x", -18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", color);
+
+legend.append("text")
+    .attr("x", -20)
+    .attr("y", 10)
+    .attr("dy", ".35em")
+    .style("text-anchor", "end")
+    .style("fill", "black")
+    .text(function(d){ return d; });
+*/
+var chart = svg.append("g")
+    .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");
+
+d3.text("./data/test.txt", function(error, tree){
     
     if(error) throw error;
-    console.log(tree);
     
-    var root = parseNewick(tree),
-      nodes = cluster.nodes(root),
-      links = cluster.links(nodes),
-      input = d3.select("#show-length input").on("change", changed),
-      timeout = setTimeout(function() { input.property("checked", true).each(changed); }, 2000);
+    var root = Newick.parse(tree),
+        nodes = cluster.nodes(root),
+        links = cluster.links(nodes),
+        input = d3.select("#show-length input").on("change", changed),
+        timeout = setTimeout(function(){
+            input.property("checked", true).each(changed); }, 2000);
+    
+    setRadius(root, root.length =0, innerRadius/maxLength(root));
+    setColor(root);
+    
+    var linkExtension = chart.append("g")
+      .attr("class", "link-extensions")
+    .selectAll("path")
+      .data(links.filter(function(d) { return !d.target.children; }))
+    .enter().append("path")
+      .each(function(d) { d.target.linkExtensionNode = this; })
+      .attr("d", function(d) {return step(d.target.x, d.target.y, d.target.x, innerRadius); })
+     .style("fill", "none")
+        .style("stroke", "lightgrey")
+        .style("stroke-width", "2px");
 
-  setRadius(root, root.length = 0, innerRadius / maxLength(root));
-  setColor(root);
-    
-  var linkExtension = chart.append("g")
-        .attr("class", "link-extensions")
-        .selectAll("path")
-        .data(links.filter(function(d) { return !d.target.children; }))
-        .enter().append("path")
-        .each(function(d) { d.target.linkExtensionNode = this; })
-        .attr("d", function(d) { return step(d.target.x, d.target.y, d.target.x, innerRadius); })
-        .style("fill","none")
-        .style("stroke", function(d) { return color(d.target.name); })
-        .style("stroke-width", "2px")
-        //.style("stroke-linecap", "round")
-        //.style("stroke-dasharray", "5,5")
-        .style("stoke-opacity","0.25");
-    
   var link = chart.append("g")
       .attr("class", "links")
     .selectAll("path")
@@ -108,90 +115,25 @@ d3.text("./data/life.txt", function(error, tree){
     .enter().append("path")
       .each(function(d) { d.target.linkNode = this; })
       .attr("d", function(d) { return step(d.source.x, d.source.y, d.target.x, d.target.y) })
-      .style("stroke", function(d) { console.log(d); return color(d.name); })
-     .style("fill", "none")
-     .style("stroke-opacity", ".9")
-    .style("stroke-linecap", "round")  
-    .style("stroke-width", "4px");
+  .style("fill", "none")
+  .style("stroke", function(d) { //console.log(d.target.name);
+                    return color(d.target.name)})
+         .style("opacity", ".7")
+            .style("stroke-width", "5px");
 
+  chart.append("g")
+      .attr("class", "labels")
+    .selectAll("text")
+      .data(nodes.filter(function(d) { return !d.children; }))
+    .enter().append("text")
+      .attr("dy", ".31em")
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (innerRadius + 4) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+      .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+        .style("fill", "black")
+      .text(function(d) { return d.name.replace(/_/g, " "); })
+      .on("mouseover", mouseovered(true))
+      .on("mouseout", mouseovered(false));
 
-
-//Bar chart for abundance or expresion value or bootstrap value
- chart.append("g").selectAll("rect")
-    .data(nodes.filter(function(d) { return !d.children; }))
-    .enter().append("rect")
-                .attr("y", -3)
-                .attr("width", function(d){
-     console.log(d);
-                        return barScale(d.length);
-                })
-                .attr("height", 7)
-                .style("fill", "#EACE3F")
-    .attr("transform", function(d) { return "rotate(" + (d.x -90) + ")translate(" + (innerRadius + 5) + ",0)" });
-
-    var phylumArc = d3.svg.arc()
-            .outerRadius(innerRadius + 70)
-	       .innerRadius(innerRadius + 67);
-  
-    var phylumSlice = chart.append("g").selectAll("path")
-    .data(pie(nodes.filter(function(d){
-        return !d.children;
-    })))
-  .enter().append("path")
-    .attr("fill", function(d) { return color(d.data.name); })
-     .style("opacity", "0.8")
-    .attr("d", phylumArc);
-    
-    /*
-    chart.append("g").selectAll("rect")
-    .data(nodes.filter(function(d) { return !d.children; }))
-    .enter().append("rect")
-                .attr("y", -5)
-                .attr("width", function(d){
-                     return barScale(.1);
-                })
-                .attr("height", 12)
-                .style("fill", function(d){
-                   return color(d.parent.parent.name);
-                })
-                .attr("transform", function(d) { return "rotate(" + (d.x -90) + ")translate(" + (innerRadius + 60) + ",0)" });
-    */
-    var textBox = 0;
-    
-    var textNode = chart.append("g")
-        .attr("class", "labels")
-        .selectAll("text")
-        .data(nodes.filter(function(d) { return !d.children; }))
-        .enter().append("text")
-        .attr("dy", ".31em")
-        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (innerRadius + 70) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-        .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-        .style("font-size", "8px")
-        .style("fill", "#000")
-        .style("font-weight", "bold")
-        .text(function(d) { return d.name; })
-        .each(function(d){
-            var bbox = this.getBBox();
-            textBox = Math.max(bbox.width, textBox);
-        })
-        .on("mouseover", mouseovered(true))
-        .on("mouseout", mouseovered(false));
-    
-
-    //creating key for
-     var donutArc = d3.svg.arc()
-            .outerRadius(innerRadius + textBox +80)
-	       .innerRadius(innerRadius + 70);
-  
-    var slice = chart.append("g").selectAll("path")
-    .data(pie(nodes.filter(function(d){
-        return !d.children;
-    })))
-  .enter().append("path")
-    .attr("fill", function(d) { return color(d.data.name); })
-     .style("opacity", "0.4")
-    .attr("d", donutArc);
-    
   function changed() {
     clearTimeout(timeout);
     var checked = this.checked;
@@ -208,7 +150,6 @@ d3.text("./data/life.txt", function(error, tree){
       do d3.select(d.linkNode).classed("link--active", active).each(moveToFront); while (d = d.parent);
     };
   }
-    
 
   function moveToFront() {
     this.parentNode.appendChild(this);
@@ -244,10 +185,8 @@ function step(startAngle, startRadius, endAngle, endRadius) {
 }
 
 d3.select(self.frameElement).style("height", outerRadius * 2 + "px");
-d3.select("#saveDendogram").on("click", exportAsImage);
+d3.select("#saveDendrogram").on("click", exportAsImage);
 
-    function parseNewick(a){for(var e=[],r={},s=a.split(/\s*(;|\(|\)|,|:)\s*/),t=0;t<s.length;t++){var n=s[t];switch(n){case"(":var c={};r.branchset=[c],e.push(r),r=c;break;case",":var c={};e[e.length-1].branchset.push(c),r=c;break;case")":r=e.pop();break;case":":break;default:var h=s[t-1];")"==h||"("==h||","==h?r.name=n:":"==h&&(r.length=parseFloat(n))}}return r}
-    
 //Saving the svg element as png on save button 
 function exportAsImage(){
     

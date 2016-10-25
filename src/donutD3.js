@@ -17,12 +17,8 @@ donutChart = function module(){
         //.padAngle(.02);
     
     arc = d3.svg.arc()
-            .outerRadius(radius )
-	        .innerRadius(radius * 0.4);
-    
-    var arcHover = d3.svg.arc()
-            .outerRadius(radius + 5)
-	        .innerRadius(radius * 0.4 + 5);
+            .outerRadius(radius * 0.9)
+	       .innerRadius(radius * 0.5);
     
     var outerArc = d3.svg.arc()
 	           .innerRadius(radius * 0.9)
@@ -65,8 +61,7 @@ donutChart = function module(){
                 .style("fill", function(d){
                     return color(d.data.taxonName);
                 })
-                .attr("class", "slice")
-            
+                .attr("class", "slice");
             
             slice.transition().duration(1000)
                 .attrTween("d", function(d) {
@@ -76,8 +71,8 @@ donutChart = function module(){
 			             return function(t) {
 				    return arc(interpolate(t));
 			     };
-		    });
-            
+		    })
+
 	        slice.exit().remove();
             
             //text lables

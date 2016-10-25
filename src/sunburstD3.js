@@ -60,7 +60,7 @@ sunburstD3 = function module() {
             // Keep track of the node that is currently being displayed as the root.
             // variable needed to reset all charts. 
             node = _data;
-            console.log(node)
+    
             // Filtering the data which have less angle tha .005 radian
              /*var nodes = partition.nodes(_data)
                             .filter(function(d) {

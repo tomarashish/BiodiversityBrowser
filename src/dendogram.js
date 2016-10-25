@@ -1,38 +1,20 @@
-dendroGram = function module() {
+function dendrogram() {
    
-    var root, nodes, links, node_counts, chart;
+    var root, nodes, links, node_counts;
     var width = 600,
-        height = 500,
+        height = 600,
         panSpeed = 200,
 	   panBoundary = 20; // Within 20px from edges will pan when dragging.
-      
-    var option = {  
-                    weightLinks : false, 
-                    linkValue : false, 
-                    linkName : true, 
-                    nodeSize : true
-                 };
-    
-    var barData, xbarChart = 0 ;
-    //var textNode = node.filter(function(d) {return (!d.children)})
-            // Getting svg text with max width
-            var textBox = 0;
-    var color = d3.scale.category20b();
-    
-    var link_weight = d3.scale.linear()
-                .domain ([0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
-                .range ([1,2,3,4,4.5,5,5.5,6,6.5,7,7.5])
-                .interpolate (d3.interpolateRound);
-    
+        
+    var link_weight = d3.scale.linear().domain ([0,0.2,0.3,0.4,1]).range ([1,2,3,4,5,6,7,8,9]).interpolate (d3.interpolateRound);
     var diagonal = rightAngleDiagonal();
-    
     var cluster = d3.layout.cluster()
             .size([height, width -300])
             .children( function(d) { return d.branchset; })
             .value( function(d) { return d.length; })
             .separation( function(a,b) {  
                  return (a.parent == b.parent ? 1 : 1) ;
-            });
+                });
 
     
     function visit(parent, visitFn, childrenFn){
@@ -76,16 +58,28 @@ dendroGram = function module() {
 		}
     
     function zoom() {
-        chart.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }
-	
-    // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
-    var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 5]).on("zoom", zoom);
+			chart.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+		}
+		// define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
+	var color = d3.scale.category20b();
     
+var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 5]).on("zoom", zoom);
+    
+    d3.select("#dendogram").select("svg").remove();
+    var chart = d3.select("#dendogram").append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("viewBox", "0 0 800 700")
+        .attr("preserveAspectRation", "xMinYMid")
+        .call(zoomListener)
+        .append("g")
+        .attr("transform", "translate(40,40)");
+       
+
     // Compute the new height, function counts total children of root node and sets tree height accordingly.
-    // This prevents the layout looking squashed when new nodes are made visible or looking sparse when nodes are removed
-    // This makes the layout more consistent.
-    var levelWidth = [1];
+        // This prevents the layout looking squashed when new nodes are made visible or looking sparse when nodes are removed
+        // This makes the layout more consistent.
+        var levelWidth = [1];
 
     var childCount = function(level, n) {
            
@@ -98,201 +92,143 @@ dendroGram = function module() {
                 });
             }
         };
-    
-    function exports(_selection){
-        _selection.each(function(_data){
-            
-            // remove if any previous drawn svg
-            d3.select(this).select("svg").remove();
-            
-            chart = d3.select(this).append("svg")
-                .attr("width", "100%")
-                .attr("height", "100%")
-                .attr("viewBox", "0 0 800 700")
-                .attr("preserveAspectRation", "xMinYMid")
-                .call(zoomListener)
-                .append("g")
-                .attr("transform", "translate(40,40)");
-            
-            root = Newick.parse(_data);
-
-            childCount(0, root);
-            var newHeight = d3.max(levelWidth) * 50; // 25 pixels per line
-            cluster = cluster.size([newHeight, width-300]);
-
-            nodes = cluster.nodes(root);
-            links = cluster.links(nodes);
-         
         
-            var totalNodes = 0;
-            var maxLabelLength = 0;
-            var maxLableText = '';
+    
+    d3.text("./data/test.txt", function(error, tree){
+    
+        
+        if(error) throw error;
+        
+        root = Newick.parse(tree);
+        
+        childCount(0, root);
+        var newHeight = d3.max(levelWidth) * 50; // 25 pixels per line
+        cluster = cluster.size([newHeight, width-300]);
+        
+        nodes = cluster.nodes(root);
+        links = cluster.links(nodes);
+        
+        var totalNodes = 0;
+        var maxLabelLength = 0;
+        
+        visit(root, function(d){
+            totalNodes++;
+            maxLabelLength = Math.max(d.name.length, maxLabelLength);
+        }, function(d) {
+        return d.children && d.children.length > 0 ? d.children : null;
+        })
+        
+     //  nodes.forEach(function(d) { d.y = d.depth * 30; });
+        
+         //if (options.skipBranchLengthScaling) {
+      var yscale = d3.scale.linear()
+        .domain([0, width])
+        .range([0, width]);
+    //} else {
+  //var yscale = scaleBranch(nodes, width)
+//    }
 
-            visit(root, function(d){
-                totalNodes++;
-                maxLabelLength = Math.max(d.name.length, maxLabelLength);
+    
+    //}
+        // Normalize for fixed-depth.
+    //nodes.forEach(function (d) {  d.y = d.depth * 100; });
 
-                if(d.name.length > maxLableText.length){
-                    maxLableText = d.name;
-                }
-
-            }, function(d) {
-            return d.children && d.children.length > 0 ? d.children : null;
+        
+       var link = chart.append("g")
+          .attr("class", "links")
+        .selectAll("path")
+          .data(links)
+        .enter().append("path")
+          .each(function(d) { d.target.linkNode = this; })
+          .attr("d",step)
+        .style("fill", "none")
+            .style("stroke", function(d) { //console.log(d.target.name);
+                    //return color(d.target.name);
+                   return color(d);                     
             })
+            //.style("stroke-linecap", "round")
+            //.style("opacity", ".7")
+            .style("stroke-width", function(d){ 
+                //return link_weight(d.source.children.length)
+               //return (d.source.length * 10);
+                return 1;
+            });
+          //.style("stroke", function(d) { return d.target.color; });
+          
         
-            var link = chart.append("g")
-                .attr("class", "links")
-                .selectAll("path")
-                .data(links)
-                .enter().append("path")
-                .each(function(d) { d.target.linkNode = this; })
-                .attr("d",step)
-                .style("fill", "none")
-                .style("stroke", function(d) { 
-                        return color(d.target.name);                    
-                })
-                .style("stroke-linecap", "round")
-                .style("opacity", ".7")
-                .style("stroke-width", function(d){ 
-                    if(option.weightLinks == false){
-
-                        return link_weight(d.target.length)
-                    }
-                    else{
-                        return 1;
-                    }
-
-                });
-              //.style("stroke", function(d) { return d.target.color; });
-
-        
-            var node = chart.selectAll(".node")
-                .data(nodes)
-                .enter().append("g")
-                .attr("class", function(d){
-                  if(d.children){
-                      if(d.depth == 0){
-                          return "root-node";
-                      }else{
-                          return "inner-node";
-                      }
+        var node = chart.selectAll(".node")
+          .data(nodes)
+        .enter().append("g")
+          .attr("class", function(d){
+              if(d.children){
+                  if(d.depth == 0){
+                      return "root-node";
                   }else{
-                      return "leaf-node";
+                      return "inner-node";
                   }
-                })
-                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
-                //.on("click", click);
-                
-            chart.selectAll('.leaf-node').append("circle")
-                .attr("r", function(d){
-                   // console.log(d)
-                    if(option.nodeSize == true) return d.value*30;
-                    else
-                        return 2.5;
-                })
-                .style("stroke", function(d){
-                        return color(d.name);
-                    })
-                .style("stroke-width", "1px")
-                .style("fill-opacity", "0.8")
-                .style("fill", function(d){
-                    return color(d.name);
-                });
-
-            node.append("text")
-                .attr("dx", function(d) { return d.children ? -5 : 4; })
-                .attr("dy", function(d){
-                    if(!d.children) return 5;
-                    else{
-                        if(option.linkValue == true)
-                            return 8;
-                    }
-                })
-                .attr("text-anchor", function (d) { return d.children ? "end" : "start"; })
-                .style("font-size", "7px")
-                .style("fill", "#000")
-                .text(function (d) {
-                    if(!d.children) return d.name;
-                    else{
-                        if(option.linkValue == true)
-                            return d.length;
-                        if(option.linkName == true)
-                            return d.name;
-                    }
-                })
-                .each(function(d) {
-                    //iterating over svg text and getting max width text box
-                    var bbox = this.getBBox();
-                    textBox = Math.max(bbox.width, textBox);
-                });
-
-           
-            //Background color for text labels
-            //using rectangle to show background color for text labels
-            chart.selectAll('.leaf-node').append("rect")
-                .attr("x", 3)
-                .attr("y", -5)
-                .attr("width", textBox + 5)
-                .attr("height", 13.5)
-                .style("fill", function(d){
-                    return color(d.name);
-                })
-                .style("opacity", "0.3");
-
-          // d3.selectAll('.leaf-node').data(nodes).exit().remove();
+              }else{
+                  return "leaf-node";
+              }
+          })
+          .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+        //  .on("click", click);
         
-            //if(barData.length > 0){
-              //  addBarChart(barData);
-            //}
-            
+    node.append("circle")
+            .attr("r", function(d){
+                if(d.children){
+                   return 0 ;
+                }else{
+                    return 2.5;
+                }
+            })
+            .style("stroke", "black")
+            .style("stroke-width", "0.1px")
+            .style("fill", "lightsteelblue");
+        
+        //var textNode = node.filter(function(d) {return (!d.children)})
 
-           // var maxTextWidth = d3.max(labels, function() {
-             //   return labels.node().getComputedTextLength();
-               // });
-            
-            
-        }) //end of _selection
-    }//end of exports
-            
-    /* 
-     if (options.skipBranchLengthScaling) {
-        var yscale = d3.scale.linear()
-            .domain([0, width])
-            .range([0, width]);
-    } else {
-        var yscale = scaleBranch(nodes, width)
-        }
-    
-        }
-    */
-    
-    function addBarChart(data){
+      node.append("text")
+          .attr("dx", function(d) { return d.children ? -8 : 8; })
+          .attr("dy", 3)
+          .attr("text-anchor", function (d) { return d.children ? "end" : "start"; })
+          .style("font-size", "7px")
+          .style("fill", "#000")
+        .style("background-color", "#7773")
+          .text(function (d) {
+                if(!d.children) return d.name;      
+          });
         
         var barScale = d3.scale.linear()
-                    .range([0,70]);
-
-        barScale.domain([0, d3.max(data, function(d){ return d;})])
+                .domain([0,1])
+                .range([0,70]);
         
-            if(xbarChart == 0){
-                xbarChart = textBox + 10;
-            }else{
-                //console.log(barScale.range()[1])
-                xbarChart = textBox + 90;
-            }
-          d3.selectAll(".leaf-node").append("rect")
-                .attr("x", xbarChart)
+        //barScale.domain([0, d3.max(root, function(d){ console.log(d); return d.children.length;})])
+    
+        /*
+        chart.selectAll(".leaf-node").append("rect")
+                .attr("x", maxLabelLength * 5 )
                 .attr("y", -5)
-                .attr("width", function(d,i){           
-                        return barScale(data[i]);
+                .attr("width", function(d){
+                        return barScale(d.length);
                     //return ( 200 * d.length);
                 })
                 .attr("height", 10)
-                .style("fill", "#EACE3F"); 
- 
-    } //end of addBarChart
-    
+                .style("fill", "#EACE3F");
+            
+            chart.selectAll(".leaf-node").append("rect")
+                .attr("x", maxLabelLength + 120)
+                .attr("y", -5)
+                .attr("width", function(d){
+                    return barScale(d.length);
+                    //return ( 100 * d.length);
+                })
+                .attr("height", 10)
+                .style("fill", "#b22200");
+                */
+    });
+
     function step(d, i) {
-        return "M" + d.source.y + "," + d.source.x
+      return "M" + d.source.y + "," + d.source.x
           + "V" + d.target.x + "H" + d.target.y;
     }
     
@@ -331,9 +267,9 @@ dendroGram = function module() {
         };
     
         return diagonal;
-    }//end of rightAngleDiagonal
+    }
     
-    d3.select("#saveDendogram").on("click", exportAsImage);
+    d3.select("#saveDendrogram").on("click", exportAsImage);
     d3.select(self.frameElement).style("height", height + "px");
     // Toggle children on click.
     function click(d) {
@@ -358,96 +294,60 @@ dendroGram = function module() {
     }
     
     function collapse(d) {
-        if (d.children) {
-            d._children = d.children;
-            d._children.forEach(collapse);
-            d.children = null;
-        }
+    if (d.children) {
+      d._children = d.children;
+      d._children.forEach(collapse);
+      d.children = null;
     }
+  }
     
-    /*
-    //addimage to node at and of text label
-    nodeEnter.append("image")
-          .attr("xlink:href", function(d) { return d.icon; })
-          .attr("x", "-12px")
-          .attr("y", "-12px")
-          .attr("width", "24px")
-          .attr("height", "24px");
-
-    */    
-         //<svg width="793px" height="1122px" style="overflow-x: auto; overflow-y: auto; "viewBox="0 0 793 1122">
-    //Saving the svg element as png on save button 
-    function exportAsImage(){
-
-        // variable for image name
-        var chartName, svg ;
-
-        // Getting svg name from this.id, replacing this.id by save
-        // save prefix is for button and replacing it with sample to
-        // get the svg chart div name 
-
-            svg = document.querySelector( '#dendogram svg' );
-
-        //
-        var svgData = new XMLSerializer().serializeToString( svg );
-
-        var canvas = document.createElement( "canvas" );
-        var ctx = canvas.getContext( "2d" );
-
-        canvas.height = height;
-        canvas.width = width;
-
-        var dataUri = '';
-        dataUri = 'data:image/svg+xml;base64,' + btoa(svgData);
-
-        var img = document.createElement( "img" );
-
-        img.onload = function() {
-            ctx.drawImage( img, 0, 0 );
-
-                // Initiate a download of the image
-                var a = document.createElement("a");
-
-                a.download = "Dendogram" + ".png";
-                a.href = canvas.toDataURL("image/png");
-                document.querySelector("body").appendChild(a);
-                a.click();
-                document.querySelector("body").removeChild(a);
-
-                // Image preview in case of "save image modal"
-
-                /*var imgPreview = document.createElement("div");
-                  imgPreview.appendChild(img);
-                  document.querySelector("body").appendChild(imgPreview);
-                */
-            };
-
-            img.src = dataUri;
-        }//end of exportAsImage
+//Saving the svg element as png on save button 
+function exportAsImage(){
     
-    exports.height = function(_x){
-        if(!argument.length) return height;
-        height = _x;
-        return this;
-    }
+    // variable for image name
+    var chartName, svg ;
     
-    exports.width = function(_x){
-        if(!argument.length) return width;
-        width = _x;
-        return this;
-    }
+    // Getting svg name from this.id, replacing this.id by save
+    // save prefix is for button and replacing it with sample to
+    // get the svg chart div name 
+
+        svg = document.querySelector( '#dendogram svg' );
     
-    exports.option = function(_x){
-        if(!arguments.length) return option;
-        option = _x;
-        return this;
-    }
+    //
+    var svgData = new XMLSerializer().serializeToString( svg );
+
+    var canvas = document.createElement( "canvas" );
+    var ctx = canvas.getContext( "2d" );
+ 
+    canvas.height = height;
+    canvas.width = width;
     
-    exports.barData = function(_x) {
-        if (!arguments.length) return barData;
-        barData = _x;
-        return this;
+    var dataUri = '';
+    dataUri = 'data:image/svg+xml;base64,' + btoa(svgData);
+ 
+    var img = document.createElement( "img" );
+ 
+    img.onload = function() {
+        ctx.drawImage( img, 0, 0 );
+ 
+            // Initiate a download of the image
+            var a = document.createElement("a");
+    
+            a.download = "Dendogram" + ".png";
+            a.href = canvas.toDataURL("image/png");
+            document.querySelector("body").appendChild(a);
+            a.click();
+            document.querySelector("body").removeChild(a);
+ 
+            // Image preview in case of "save image modal"
+            
+            /*var imgPreview = document.createElement("div");
+              imgPreview.appendChild(img);
+              document.querySelector("body").appendChild(imgPreview);
+            */
     };
     
-    return exports;
-}//end of module
+    img.src = dataUri;
+}
+    
+}
