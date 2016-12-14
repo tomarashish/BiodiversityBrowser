@@ -8,9 +8,9 @@ sunburstD3 = function module() {
         
     // Layout variables using current size of chart
     var $chart_container = $(this),
-        width =  $chart_container.width() ,
-        height = $chart_container.width() ,
-        radius = Math.min(width, height) / 2;
+        width =  $chart_container.width()  ,
+        height = $chart_container.width()  ,
+        radius = Math.min(width, height) / 2.4;
 
     //Setting breadcrumbs point for drawing svg polygon 
     var b = {

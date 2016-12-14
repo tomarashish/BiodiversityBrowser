@@ -2,7 +2,7 @@ function dendrogram() {
    
     var root, nodes, links, node_counts;
     var width = 600,
-        height = 600,
+        height = 500,
         panSpeed = 200,
 	   panBoundary = 20; // Within 20px from edges will pan when dragging.
         

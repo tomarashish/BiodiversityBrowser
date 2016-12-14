@@ -125,7 +125,7 @@ body {
 */
 
 div#sequence{
-   padding-top: 10px;
+   padding-top: 5px;
    padding-left: 5px;
    /*overflow: scroll;*/
    overflow-y: hidden;
@@ -142,6 +142,10 @@ div.tooltip {
     color: cornsilk;
     background:black;
     pointer-events: none;
+}
+
+#dendogram{
+	height: 500px;
 }
 
 .footer {
@@ -169,10 +173,14 @@ html {
     font-family:fantasy;
 }
 
-#showViz {
-	/*visibility: hidden;*/
+/*#show-viz {
+	visibility: hidden;
 }            
 
+#load-data{
+    visibility:visible;
+}
+*/
 text {
     cursor: default;
     fill: #FFF;
@@ -223,12 +231,15 @@ text {
 }
 
 #map, #donut {
-    height : 400px;
+	height : 400px;
 }
 
-#sunburst{
-    height : 550px;
+#worldMap{
+	padding:10px 10px 10px 10px;
+	background-color: #fff;
 }
+
+
 path.slice{
 	stroke-width:2px;
 }
@@ -253,4 +264,15 @@ polyline{
     -o-animation: spin .4s 1 linear;
     -webkit-animation: spin .4s 1 linear;
     animation: spin .4s 1 linear;
+}
+
+.footer {
+    font-size:18px;
+    font-family: sans-serif;
+    color: white !important;
+	position: fixed;
+    bottom: opx;
+    width: 100%;
+    padding-top: 20px;
+    background-color: black;
 }
