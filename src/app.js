@@ -1,9 +1,14 @@
 // See post: http://asmaloney.com/2015/06/code/clustering-markers-on-leaflet-maps
+// icons for markers
+//https://www.iconfinder.com/icons/1110928/beetle_bug_fly_insect_insects_pest_icon#size=128
+//http://www.flaticon.com/free-icons/insect_223
 
 
-var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+var tiles = L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
 				maxZoom: 18,
 				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ',noWrap : true } );
+
+
 var map = L.map( 'map', {
     layers:[tiles],
   center: [10.0, 5.0],
@@ -16,16 +21,16 @@ var map = L.map( 'map', {
 var myURL = jQuery( 'script[src$="app.js"]' ).attr( 'src' ).replace( 'app.js', '' );
 
 var myIcon = L.icon({
-  iconUrl: myURL + '../data/images/big4.jpeg',
+  iconUrl: myURL + '../data/images/bee1.png',
    //shadowUrl: '../data/images/leaf-shadow.png',
-  iconSize:     [25, 25], // size of the icon
+  iconSize:     [30, 30], // size of the icon
     shadowSize:   [60, 25], // size of the shadow
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62],  // the same for the shadow
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-var markerClusters = L.markerClusterGroup();
+var markerClusters = L.markerClusterGroup({
+	 maxClusterRadius: 1,
+});
 
 for ( var i = 0; i < markers.length; ++i )
 {
