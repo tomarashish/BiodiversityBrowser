@@ -41,39 +41,40 @@
   </head>
     
  <body>
-	 <!-- Navigation -->
-     
-     <nav class="navbar navbar-inverse navbar-fixed-top" >
-         <div class="container">
-            <div class="navbar-header">
-                
-                <button type="buton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </button>
-                <!-- Header -->
-                <img src="data/images/big4.jpeg" height="50px" width="55px">
-                <a class="navbar-brand" href="index.html">GeoPhylogeny</a>
-            </div>
-            <div>
-                <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li ><a href="about.html">About</a></li>
-                    <li><a href="#">Help</a></li>
-                </ul>
-                </div>
-            </div>
-         </div>
-     </nav>
-	 
-     <!--footer class="footer">
-        <div class="container">
-            <p>Developed By :  
-             <span><a href="http://big4-project.eu/" target="_blank">BIG4 Group</a></span> <span style="float:right"> Project Funded By <img id="footer-logo" height="30" width="40" src="data/images/logoeu.gif"/></span>
-            </p>
+	  <!-- header -->
+    <header class="navbar navbar-fixed-top" role="navigation" >
+      <div class="container">
+        <div class="navbar-header">
+           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Geophylogeny</a>
         </div>
-     </footer-->
+      </div>
+      
+      <!-- navbar -->
+      <nav class="nav navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="index.html"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+         <li><a href="#about"><i class="fa fa-info-circle"></i> About</a></li>
+          <li><a href=""><i class="fa fa-question-circle"></i>&nbsp;Help</a></li>
+        </ul>
+      </nav><!-- end of nav-->
+    </header><!-- end of header-->
+    
+    <!-- footer -->
+     <footer class="footer">
+    <div class="container">
+      <p>Developed By :
+         <span><a href="https://era7bioinformatics.com/en/index.cfm" target="_blank">Era7 Bioinformatics</a></span> &nbsp; And &nbsp;
+        <span><a href="http://big4-project.eu/" target="_blank">Big4 Project</a></span>
+        <span style="float:right"> Project Funded By: <b>European Union </b><img id="footer-logo" height="30" width="40" src="data/images/logoeu.gif"/></span>
+      </p>
+    </div>
+  </footer><!-- end of footer-->
+    
 	 
      <div class="container-fluid">
          
@@ -87,7 +88,7 @@
             </div>
             </div>
              <div class="col-md-4">
-                 <div class="chart-wrapper" style="font-size:15px; font-weight: bold; text-align: center">Taxon Abundance
+                 <div class="chart-wrapper">Taxon Abundance
               		<!--div class="chart-title">Donut chart </div-->
                     <div id="donut" class="chart-area"></div>
                   </div>
@@ -96,7 +97,7 @@
          
          <div class="row hide-vis">
              <div class="col-md-12"> 
-                <div class="chart-wrapper" style="font-size:15px; font-weight: bold; text-align: center">Lineage
+                <div class="chart-wrapper">Lineage
                     <div id="sequence" class="chart-area"></div>
                 </div>
             </div>
@@ -105,7 +106,7 @@
          <div class="row hide-vis">
           
              <div class="col-md-4"> 
-                 <div class="chart-wrapper" style="font-size:15px; font-weight: bold; text-align: center">
+                 <div class="chart-wrapper">
                      <!--div class="chart-title dropdown">Sequence Sunburst
                          <button type="btn btn-raised" class="btn btn-default btn-raised dropdown-toggle" data-toggle="dropdown">          
                              <span class="fa fa-list"></span>
@@ -118,7 +119,7 @@
                 </div>
              </div>
             <div class="col-md-8">
-                <div class="chart-wrapper" style="font-size:15px; font-weight: bold; text-align: center">Phylogenetic Tree
+                <div class="chart-wrapper">Phylogenetic Tree
                     <!--div class="chart-title dropdown"> Phylogenetic Tree
                         <button type="button" class="btn btn-default btn-raised btn-responsive dropdown-toggle" data-toggle="dropdown"> <span class="fa fa-list"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right">
@@ -130,7 +131,7 @@
                     <div id="dendogram" class="chart-area"></div>
                 </div>
              </div>
-     </div>
+       </div>
          
          <script type="text/javascript" src="src/donutD3.js"></script>
     <script type='text/javascript' src='src/markers.js'></script>

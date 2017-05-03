@@ -1,4 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Tangerine);
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
+@import url('https://fonts.googleapis.com/css?family=Dosis');
+
 @media (max-width: 762px){
     .btn-responsive {
         font-size:80%;
@@ -49,7 +53,11 @@ body {
 
 .chart-wrapper{
     background: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.23),0 1px 3px rgba(0,0,0,.16);
     -moz-box-shadow: 0 1px 3px rgba(0,0,0,.23),0 1px 3px rgba(0,0,0,.16);
     -webkit-box-sizing: border-box;
@@ -62,7 +70,7 @@ body {
     border-bottom: 2px solid #d9d9d9;
     font-weight: bold;
     text-align: center;
-    padding:  10px 10px 10px;
+    padding:  5px 10px;
 }
 
 .chart-wrapper .chart-area{
@@ -148,20 +156,88 @@ div.tooltip {
 	height: 500px;
 }
 
-.footer {
-    position: absolute;
-    padding-top: 10px;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    background-color: gainsboro;
-}
-
 h4.title {
     text-align: center;
 }
 
+/*custome style on navbar */
+.navbar {
+  min-height: 50px;
+  border-bottom: 0px solid #d9d9d9;
+  background-color: #777;
+  /*background-color: #f9f7ed;
+  background-color: #f4f3ef;
+  background-color: #77cc6d; 
+  background-color: #ffd777;*/
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .13), 0 3px 10px rgba(0, 0, 0, .16);
+}
+
+
+/*custome style on navbar brand */
+.navbar .navbar-brand {
+  color: #777;
+  color: #fff;
+  color: darkturquoise;
+  position: absolute;
+  left: 40px;
+  margin: 5px 10px;
+  font-weight: bold;
+  font-family: 'Dosis', sans-serif;
+  padding: 10px 20px;
+  font-size: 28px;
+}
+
+
+/* navbar brand on hover */
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #68B3C8;
+  color: darkturquoise;
+}
+
+
+/*custome style on navbar li */
+.navbar .navbar-nav > li > a {
+  /*color: #777;*/
+  color: #9a9a9a;
+  color: #fff;
+  /*font-weight: 600;*/
+  right: 100px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Dosis', sans-serif;
+  line-height: 1.42857;
+  margin: 5px 10px;
+  padding: 5px 10px;
+}
+
+
+/* navbar li on hover */
+.navbar .navbar-nav > li > a:hover {
+  background-color: transparent;
+  color: #68B3C8;
+  color: darkturquoise;
+}
+
+
+/* navbar li on click */
+.navbar .navbar-nav > li > a:focus {
+  background-color: transparent;
+  color: #fff;
+}
+
+
+/* active navbar li */
+.navbar .navbar-nav>.active>a,
+.navbar .navbar-nav>.active>a:focus,
+.navbar .navbar-nav>.active>a:hover {
+  background-color: #66615b !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+}
+
 html {
+  font-family: 'Dosis', sans-serif;
     position: relative;
     min-height: 100%;
 }
@@ -170,7 +246,7 @@ html {
     text-align: center;
     color: rosybrown;
     font-size : 20px;
-    font-family:fantasy;
+    font-family: 'Dosis', sans-serif;
 }
 
 /*#show-viz {
@@ -186,7 +262,7 @@ text {
     fill: #FFF;
     pointer-events: none;
     font-size: 13px;
-    font-family: sans-serif;
+    font-family: 'Dosis', sans-serif;
     font-weight: bold;
 }
 
@@ -265,14 +341,15 @@ polyline{
     -webkit-animation: spin .4s 1 linear;
     animation: spin .4s 1 linear;
 }
-
+    
 .footer {
-    font-size:18px;
-    font-family: sans-serif;
+    font-size:25px;
+    font-family: 'Dosis', sans-serif;
     color: white !important;
-	position: fixed;
-    bottom: opx;
+	position: absolute;
+    bottom: 0px;
     width: 100%;
+    height: 60px;
     padding-top: 20px;
-    background-color: black;
+    background-color: #777;
 }
