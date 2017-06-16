@@ -73,14 +73,8 @@ var donutContainer = d3.select('#donut')
 function markClick(){
     
     // draw dendrogram
-    dendrogram();
-    /*var donutData = [{taxonName:"Coleoptera", total:40},{taxonName:"lepidoptera", total:20},{taxonName:"Diptera", total:30},{taxonName:"Hymnoptera", total:10}]
-    //draw donut 
-    d3.select("#donut").select("svg").remove();
-    var donutContainer = d3.select('#donut')
-        .datum(donutData)
-        .call(donutChart);
-    */
+    //dendrogram();
+    radialDendrogram();
     
     //make hidden div visibility true
     d3.selectAll(".hide-vis").style("visibility", "visible")

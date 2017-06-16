@@ -10,7 +10,7 @@ sunburstD3 = function module() {
     var $chart_container = $(this),
         width =  $chart_container.width()  ,
         height = $chart_container.width()  ,
-        radius = Math.min(width, height) / 2.4;
+        radius = Math.min(width, height) / 2.5;
 
     //Setting breadcrumbs point for drawing svg polygon 
     var b = {

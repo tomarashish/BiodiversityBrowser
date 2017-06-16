@@ -92,7 +92,7 @@ d3.text("./data/test.txt", function(error, tree){
         links = cluster.links(nodes),
         input = d3.select("#show-length input").on("change", changed),
         timeout = setTimeout(function(){
-            input.property("checked", true).each(changed); }, 2000);
+            changed; }, 2000);
     
     setRadius(root, root.length =0, innerRadius/maxLength(root));
     setColor(root);
@@ -133,10 +133,9 @@ d3.text("./data/test.txt", function(error, tree){
       .text(function(d) { return d.name.replace(/_/g, " "); })
       .on("mouseover", mouseovered(true))
       .on("mouseout", mouseovered(false));
-
+    
   function changed() {
-    clearTimeout(timeout);
-    var checked = this.checked;
+    
     d3.transition().duration(750).each(function() {
       linkExtension.transition().attr("d", function(d) { return step(d.target.x, checked ? d.target.radius : d.target.y, d.target.x, innerRadius); });
       link.transition().attr("d", function(d) { return step(d.source.x, checked ? d.source.radius : d.source.y, d.target.x, checked ? d.target.radius : d.target.y) });
