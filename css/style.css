@@ -3,41 +3,41 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
 @import url('https://fonts.googleapis.com/css?family=Dosis');
 
-@media (max-width: 762px){
-    .btn-responsive {
-        font-size:80%;
-        line-height: 1.4;
-        padding: 3px 6px;
-         -webkit-border-radius: 3px;        
-         -moz-border-radius: 3px;
-            border-radius: 3px;
-    }
+@media (max-width: 762px) {
+  .btn-responsive {
+    font-size: 80%;
+    line-height: 1.4;
+    padding: 3px 6px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
 }
 
 @media (min-width: 760px) and (max-width: 992px) {
   .btn-responsive {
-    padding:4px 9px;
-    font-size:90%;
+    padding: 4px 9px;
+    font-size: 90%;
     line-height: 1.5;
   }
 }
 
 body {
-    margin-bottom: 60px;
-    margin-top: 100px;
-    
+  margin-bottom: 60px;
+  margin-top: 100px;
+
 }
 
 .btn-default {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 .btn.btn-raised {
-    box-shadow: 0 1px 3px rgba(0,0,0,.23),0 1px 3px rgba(0,0,0,.16);
-    transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
-     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .23), 0 1px 3px rgba(0, 0, 0, .16);
+  transition: box-shadow .28s cubic-bezier(.4, 0, .2, 1);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /*
@@ -48,38 +48,38 @@ body {
 */
 
 .btn:focus {
-  outline: none;  
+  outline: none;
 }
 
-.chart-wrapper{
-    background: #fff;
-    margin-bottom: 5px;
+.chart-wrapper {
+  background: #fff;
+  margin-bottom: 5px;
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   text-align: center;
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.23),0 1px 3px rgba(0,0,0,.16);
-    -moz-box-shadow: 0 1px 3px rgba(0,0,0,.23),0 1px 3px rgba(0,0,0,.16);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .23), 0 1px 3px rgba(0, 0, 0, .16);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .23), 0 1px 3px rgba(0, 0, 0, .16);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.chart-wrapper .chart-title{
-    text-transform: uppercase;
-    border-bottom: 2px solid #d9d9d9;
-    font-weight: bold;
-    text-align: center;
-    padding:  5px 10px;
+.chart-wrapper .chart-title {
+  text-transform: uppercase;
+  border-bottom: 2px solid #d9d9d9;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 10px;
 }
 
-.chart-wrapper .chart-area{
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+.chart-wrapper .chart-area {
+  text-align: center;
+  overflow: hidden;
+  position: relative;
 }
 
- /*
+/*
 .card {
     text-align: center;
     margin-top: 10px;
@@ -93,7 +93,8 @@ body {
    -webkit-box-shadow: 0 3px 10px rgba(0,0,0,.23),0 3px 10px rgba(0,0,0,.16);
     -moz-box-shadow: 0 3px 10px rgba(0,0,0,.23),0 3px 10px rgba(0,0,0,.16);
     /*box-shadow: 0 1px 6px rgba(0,0,0,.12),0 1px 6px rgba(0,0,0,.12);*/
-   /* box-shadow: 0 3px 10px rgba(0,0,0,.23),0 3px 10px rgba(0,0,0,.16);
+
+/* box-shadow: 0 3px 10px rgba(0,0,0,.23),0 3px 10px rgba(0,0,0,.16);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -132,35 +133,36 @@ body {
 }
 */
 
-div#sequence{
-   padding-top: 5px;
-   padding-left: 5px;
-   /*overflow: scroll;*/
-   overflow-y: hidden;
+div#sequence {
+  padding-top: 5px;
+  padding-left: 5px;
+  /*overflow: scroll;*/
+  overflow-y: hidden;
 }
 
 div.tooltip {
-    position: absolute;
-    text-align: center;
-    font: 12px sans-serif;
-    border: 5px;	
-    border-color: aliceblue;
-    border-radius: 8px;
-    padding: 8px;
-    color: cornsilk;
-    background:black;
-    pointer-events: none;
+  position: absolute;
+  text-align: center;
+  font: 12px sans-serif;
+  border: 5px;
+  border-color: aliceblue;
+  border-radius: 8px;
+  padding: 8px;
+  color: cornsilk;
+  background: black;
+  pointer-events: none;
 }
 
-#dendogram{
-	height: 500px;
+#dendogram {
+  height: 500px;
 }
 
 h4.title {
-    text-align: center;
+  text-align: center;
 }
 
 /*custome style on navbar */
+
 .navbar {
   min-height: 50px;
   border-bottom: 0px solid #d9d9d9;
@@ -174,19 +176,21 @@ h4.title {
 
 
 /*custome style on navbar brand */
+
 .navbar .navbar-brand {
-   color:#fff;
+  color: #fff;
   position: absolute;
   left: 40px;
   margin: 5px 10px;
   font-weight: bold;
   font-family: 'Josefin Sans', sans-serif;
   padding: 10px 20px;
-  font-size: 28px;
+  font-size: 25px;
 }
 
 
 /* navbar brand on hover */
+
 .navbar .navbar-brand:hover,
 .navbar .navbar-brand:focus {
   color: #68B3C8;
@@ -194,8 +198,9 @@ h4.title {
 
 
 /*custome style on navbar li */
+
 .navbar .navbar-nav > li > a {
-  color:#fff;
+  color: #fff;
   /*font-weight: 600;*/
   right: 100px;
   font-size: 22px;
@@ -208,6 +213,7 @@ h4.title {
 
 
 /* navbar li on hover */
+
 .navbar .navbar-nav > li > a:hover {
   background-color: transparent;
   color: #68B3C8;
@@ -216,6 +222,7 @@ h4.title {
 
 
 /* navbar li on click */
+
 .navbar .navbar-nav > li > a:focus {
   background-color: transparent;
   color: #fff;
@@ -223,9 +230,10 @@ h4.title {
 
 
 /* active navbar li */
-.navbar .navbar-nav>.active>a,
-.navbar .navbar-nav>.active>a:focus,
-.navbar .navbar-nav>.active>a:hover {
+
+.navbar .navbar-nav > .active > a,
+.navbar .navbar-nav > .active > a:focus,
+.navbar .navbar-nav > .active > a:hover {
   background-color: #66615b !important;
   color: #fff !important;
   border-radius: 6px !important;
@@ -233,15 +241,15 @@ h4.title {
 
 html {
   font-family: 'Dosis', sans-serif;
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
-.header{
-    text-align: center;
-    color: rosybrown;
-    font-size : 20px;
-    font-family: 'Dosis', sans-serif;
+.header {
+  text-align: center;
+  color: rosybrown;
+  font-size: 20px;
+  font-family: 'Dosis', sans-serif;
 }
 
 /*#show-viz {
@@ -252,13 +260,14 @@ html {
     visibility:visible;
 }
 */
+
 text {
-    cursor: default;
-    fill: #FFF;
-    pointer-events: none;
-    font-size: 13px;
-    font-family: 'Dosis', sans-serif;
-    font-weight: bold;
+  cursor: default;
+  fill: #FFF;
+  pointer-events: none;
+  font-size: 13px;
+  font-family: 'Dosis', sans-serif;
+  font-weight: bold;
 }
 
 .node {
@@ -271,9 +280,9 @@ text {
   stroke-width: 1.5px;
 }
 
-.node text{
-    font: 15px ;
-    fill: black;
+.node text {
+  font: 15px;
+  fill: black;
 }
 
 /*.link-extensions {
@@ -288,7 +297,7 @@ text {
 }
 
 .link--active {
-    fill:#fff;
+  fill: #fff;
   stroke: #000 !important;
   stroke-width: 1.5px;
 }
@@ -301,50 +310,51 @@ text {
   font-weight: bold;
 }
 
-#map, #donut {
-	height : 400px;
+#map,
+#sunburst {
+  height: 400px;
 }
 
-#worldMap{
-	padding:10px 10px 10px 10px;
-	background-color: #fff;
+#worldMap {
+  padding: 10px 10px 10px 10px;
+  background-color: #fff;
 }
 
 
-path.slice{
-	stroke-width:2px;
+path.slice {
+  stroke-width: 2px;
 }
 
-polyline{
-	opacity: .3;
-	stroke: black;
-	stroke-width: 2px;
-	fill: none;
+polyline {
+  opacity: .3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
 }
 
-.hide-vis{
-    visibility: hidden;
+.hide-vis {
+  visibility: hidden;
 }
 
 .rotate {
-    cursor:pointer;
+  cursor: pointer;
 }
 
-.rotate:hover { 
-    -moz-animation: spin .4s 1 linear;
-    -o-animation: spin .4s 1 linear;
-    -webkit-animation: spin .4s 1 linear;
-    animation: spin .4s 1 linear;
+.rotate:hover {
+  -moz-animation: spin .4s 1 linear;
+  -o-animation: spin .4s 1 linear;
+  -webkit-animation: spin .4s 1 linear;
+  animation: spin .4s 1 linear;
 }
-    
+
 .footer {
-    font-size:25px;
-    font-family: 'Dosis', sans-serif;
-    color: white !important;
-	position: absolute;
-    bottom: 0px;
-    width: 100%;
-    height: 60px;
-    padding-top: 20px;
-    background-color: #777;
+  font-size: 25px;
+  font-family: 'Dosis', sans-serif;
+  color: white !important;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 60px;
+  padding-top: 20px;
+  background-color: #777;
 }
