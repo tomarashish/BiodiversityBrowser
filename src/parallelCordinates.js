@@ -1,11 +1,11 @@
 var margin = {
     top: 66,
-    right: 110,
+    right: 10,
     bottom: 20,
-    left: 188
+    left: 20
   },
-  width = document.body.clientWidth - margin.left - margin.right,
-  height = 340 - margin.top - margin.bottom,
+  width = 900 - margin.right - margin.left,
+  height = 400 - margin.top - margin.bottom,
   innerHeight = height - 2;
 
 var devicePixelRatio = window.devicePixelRatio || 1;
@@ -49,10 +49,12 @@ var types = {
   }
 };
 
+//kingdom,phylum,class,order,family,genus,species,taxonrank,scientificname,countrycode,locality,publishingorgkey,decimallatitude,decimallongitude,coordinateuncertaintyinmeters,coordinateprecision,elevation,elevationaccuracy,depth,depthaccuracy,eventdate,day,month,year,taxonkey,specieskey,basisofrecord,institutioncode,collectioncode,catalognumber,recordnumber,identifiedby,license,rightsholder,recordedby,typestatus,establishmentmeans,lastinterpreted,mediatype,issue
+
 var dimensions = [
   {
-    key: "food_group",
-    description: "Food Group",
+    key: "family",
+    description: "Family",
     type: types["String"],
     axis: d3.axisLeft()
       .tickFormat(function (d, i) {
@@ -60,128 +62,39 @@ var dimensions = [
       })
   },
   {
-    key: "Total lipid (fat) (g)",
+    key: "typestatus",
+    type: types["String"],
+    axis: d3.axisLeft()
+      .tickFormat(function (d, i) {
+        return d;
+      })
+  },
+  {
+    key: "elevation",
     type: types["Number"],
     scale: d3.scaleSqrt().range([innerHeight, 0])
   },
   {
-    key: "Sugars, total (g)",
+    key: "depth",
     type: types["Number"],
     scale: d3.scaleSqrt().range([innerHeight, 0])
   },
   {
-    key: "Calcium, Ca (mg)",
+    key: "year",
     type: types["Number"],
     scale: d3.scaleSqrt().range([innerHeight, 0])
   },
   {
-    key: "Sodium, Na (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
+    key: "genus",
+    type: types["String"],
+    axis: d3.axisLeft()
+      .tickFormat(function (d, i) {
+        return d;
+      })
   },
   {
-    key: "Phosphorus, P (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Potassium, K (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Thiamin (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Riboflavin (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Niacin (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Iron, Fe (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Magnesium, Mg (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Protein (g)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Zinc, Zn (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Vitamin B-6 (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Vitamin B-12 (mcg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Folic acid (mcg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Selenium, Se (mcg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Vitamin A, IU (IU)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Vitamin K (phylloquinone) (mcg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Vitamin C, total ascorbic acid (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Vitamin D (IU)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Cholesterol (mg)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Fiber, total dietary (g)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "Carbohydrate, by difference (g)",
-    type: types["Number"],
-    scale: d3.scaleSqrt().range([innerHeight, 0])
-  },
-  {
-    key: "manufac_name",
-    description: "Manufacturer",
+    key: "species",
+    description: "Species name",
     type: types["String"],
     axis: d3.axisRight()
       .tickFormat(function (d, i) {
@@ -197,13 +110,13 @@ var xscale = d3.scalePoint()
 
 var yAxis = d3.axisLeft();
 
-var container = d3.select("#checklist").append("div")
+var container = d3.select("#checklist")
   .attr("class", "parcoords")
-  .style("width", width + margin.left + margin.right + "px")
+  .style("width", "100%")
   .style("height", height + margin.top + margin.bottom + "px");
 
 var svg = container.append("svg")
-  .attr("width", width + margin.left + margin.right)
+  .attr("width", "100%")
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -222,7 +135,7 @@ ctx.globalAlpha = 0.15;
 ctx.lineWidth = 1.5;
 ctx.scale(devicePixelRatio, devicePixelRatio);
 
-var output = d3.select("body").append("pre");
+var output = d3.select("#tableView").append("pre");
 
 var axes = svg.selectAll(".axis")
   .data(dimensions)
@@ -234,7 +147,7 @@ var axes = svg.selectAll(".axis")
     return "translate(" + xscale(i) + ")";
   });
 
-d3.csv(".csv", function (error, data) {
+d3.csv("data/coleoptera_taxonomy.csv", function (error, data) {
   if (error) throw error;
 
   // shuffle the data!
@@ -283,6 +196,7 @@ d3.csv(".csv", function (error, data) {
     .append("text")
     .attr("class", "title")
     .attr("text-anchor", "start")
+    .attr("font-color", "#000")
     .text(function (d) {
       return "description" in d ? d.description : d.key;
     });
