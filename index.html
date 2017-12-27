@@ -66,59 +66,60 @@
   </header>
   <!-- end of header-->
 
-  <!-- footer -->
-  <!--footer class="footer">
-    <div class="container">
-      <p>Developed By :
-         <span><a href="https://era7bioinformatics.com/en/index.cfm" target="_blank">Era7 Bioinformatics</a></span> &nbsp; And &nbsp;
-        <span><a href="http://big4-project.eu/" target="_blank">Big4 Project</a></span>
-        <span style="float:right"> Project Funded By: <b>European Union </b><img id="footer-logo" height="30" width="40" src="data/images/logoeu.gif"/></span>
-      </p>
-    </div>
-  </footer><!-- end of footer-->
+  <footer>
+    <footer class="footer">
+      <div class="container">
+        <p>Developed By :
+          <span><a href="https://era7bioinformatics.com/en/index.cfm" target="_blank">Era7 Bioinformatics</a></span> &nbsp; And &nbsp;
+          <span><a href="http://big4-project.eu/" target="_blank">Big4 Project</a></span>
+          <span style="float:right"> Project Funded By: <b>European Union </b><img id="footer-logo" height="30" width="40" src="data/images/logoeu.gif"/></span>
+        </p>
+      </div>
+    </footer>
+    <!-- end of footer-->
 
 
-  <div class="container-fluid">
+    <div class="container-fluid">
 
-    <div class="row">
+      <!--div class="row">
       <div class="col-md-12">
         <div class="chart-wrapper">
           <div class="chart-title">Lineage </div>
           <div id="sequence" class="chart-area"></div>
         </div>
       </div>
-    </div>
+    </div-->
 
-    <div class="row">
-      <div class="col-md-8">
-        <div class="chart-wrapper">
-          <div class="chart-title">Species Dsitribution
+      <div class="row">
+        <div class="col-md-8">
+          <div class="chart-wrapper">
+            <div class="chart-title">Species Dsitribution
+            </div>
+            <div id="map" class="chart-area">
+            </div>
           </div>
-          <div id="map" class="chart-area">
+        </div>
+        <div class="col-md-4">
+          <div class="chart-wrapper">
+            <div class="chart-title">Taxon Abundance </div>
+            <div id="sunburst" class="chart-area"></div>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="chart-wrapper">
-          <div class="chart-title">Taxon Abundance </div>
-          <div id="sunburst" class="chart-area"></div>
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">Checklist View </div>
+            <div id="checklist" class="chart-area"></div>
+          </div>
         </div>
       </div>
+
+      <script type="text/javascript" src="src/donutD3.js"></script>
+      <script type='text/javascript' src='src/markers.js'></script>
+      <script type='text/javascript' src='src/app.js'></script>
     </div>
-
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="chart-wrapper">
-          <div class="chart-title">Checklist View </div>
-          <div id="dendogram" class="chart-area"></div>
-        </div>
-      </div>
-    </div>
-
-    <script type="text/javascript" src="src/donutD3.js"></script>
-    <script type='text/javascript' src='src/markers.js'></script>
-    <script type='text/javascript' src='src/app.js'></script>
-  </div>
 </body>
 </html>
