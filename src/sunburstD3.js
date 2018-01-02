@@ -15,13 +15,21 @@ sunburstD3 = function module() {
     .clamp(true)
     .range([90, 20]);
 
+  //Setting breadcrumbs point for drawing svg polygon 
+  var b = {
+    w: 0,
+    h: 40,
+    s: 3,
+    t: 5
+  };
+
   // Layout variables using current size of chart
   // var $chart_container = $(this),
   // width = $chart_container.width(),
   //height = $chart_container.width(),
-  var width = 500,
-    height = 415,
-    radius = Math.min(width, height) / 2.5;
+  var width = 400,
+    height = 400,
+    radius = Math.min(width, height) / 2;
 
   // setting d3 partition layout 
   var partition = d3.partition();
@@ -82,7 +90,7 @@ sunburstD3 = function module() {
 
       // initalizing breadcrumbtrail to represent the hierarchy 
       // of nodes from parent till current selection. 
-      //  _initializeBreadcrumbTrail();
+      _initializeBreadcrumbTrail();
 
       //d3 tooltip
       div = d3.select('body') //select tooltip div over body
@@ -94,10 +102,10 @@ sunburstD3 = function module() {
       svg = d3.select(this).append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr('viewBox', '0 0 ' + Math.min(width, height + 100) + ' ' + Math.min(width, height))
+        .attr('viewBox', '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height))
         .attr('preserveAspectRatio', 'xMinYMin')
         .append("g")
-        .attr("transform", "translate(" + (width / 2) + "," + (height / 2 + 10) + ")");
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
 
       // Now redefine the value function to use the previously-computed sum.
 
@@ -105,6 +113,11 @@ sunburstD3 = function module() {
       this.path = svg.selectAll("path.arc")
         .data(partition(root).descendants())
         .enter()
+        .filter(function (d) {
+          //console.log(_data)
+          if (d.children)
+            return d;
+        })
         .append("path")
         .attr("d", arc)
         .attr("class", "arc")
@@ -120,7 +133,7 @@ sunburstD3 = function module() {
       chartObj.push(this);
 
 
-      var texts = svg.selectAll("text")
+      /*var texts = svg.selectAll("text")
         .data(partition(root).descendants())
         .enter().append("text")
         //.filter(filter_min_arc_size_text)
@@ -135,7 +148,7 @@ sunburstD3 = function module() {
         .text(function (d, i) {
           return d.key
         })
-
+*/
       // creating click buttton on main chart
       if (this.id == "chart") {
         //selction of chart div and binding click to exportAsImage 
@@ -169,12 +182,12 @@ sunburstD3 = function module() {
         };
       });
     //Getting array of name for breadcrumbs trail
-    // var seqArray = getAncestor(d);
-    //current_breadcrumbs = seqArray;
+    var seqArray = getAncestor(d);
+    current_breadcrumbs = seqArray;
     // Update breadcrumbs for a click made on any sunburst 
     // Such that the pattern changed in reference sunburst represents 
     // the breadcrumbs
-    // _updateBreadcrumbs(seqArray);
+    _updateBreadcrumbs(seqArray);
   }
 
   // To get path of node of each chart
@@ -231,18 +244,18 @@ sunburstD3 = function module() {
 
     //fade all the segment of arc on mouseover
     // Activate the once which are acncestor of current node
-    /*chartObj.forEach(function (obj) {
+    chartObj.forEach(function (obj) {
 
       obj.path
         .style("opacity", .2);
 
-    });*/
+    });
 
     //Get ancestor of current node 
     var seqArray = getAncestor(d);
 
     //updating breadcrumbs
-    // _updateBreadcrumbs(seqArray);
+    _updateBreadcrumbs(seqArray);
 
     chartObj.forEach(function (obj) {
 
@@ -272,13 +285,13 @@ sunburstD3 = function module() {
       .style("opacity", 1);
 
     // Hide the breadcrumb trail
-    /* if (!current_breadcrumbs) {
+    if (!current_breadcrumbs) {
       d3.select("#trail")
         .style("visibility", "hidden");
     } else {
       _updateBreadcrumbs(current_breadcrumbs);
     }
-*/
+
   } //end of mouseout
 
   //Get ancestor of a child
@@ -323,7 +336,7 @@ sunburstD3 = function module() {
     //with increase in font size increase the multiplier number
     var length_norm_factor = 9;
 
-    b.w = length_norm_factor * d.key.length;
+    b.w = length_norm_factor * d.data.key.length;
 
     points.push("0,0");
     points.push(b.w + ",0");
@@ -399,14 +412,14 @@ sunburstD3 = function module() {
     //Passing normalized value to attr x for setting text to polygon
     entering.append("svg:text")
       .attr("x", function (d) {
-        return ((d.key.length * 9 + b.t) / 2);
+        return ((d.data.key.length * 9 + b.t) / 2);
       })
       .attr("y", (b.h) / 2)
       .attr("dy", "0.35em")
       .style("font-size", 15 + "px")
       .attr("text-anchor", "middle")
       .text(function (d) {
-        return d.key;
+        return d.data.key;
       });
 
     //polygonWidth = translate;
@@ -415,7 +428,7 @@ sunburstD3 = function module() {
     // Set position for entering and updating nodes.
     g.attr("transform", function (d) {
       var str = "translate(" + translate + ", 0)"
-      translate += d.key.length * 9 + b.t;
+      translate += d.data.key.length * 9 + b.t;
       return str;
     });
 
